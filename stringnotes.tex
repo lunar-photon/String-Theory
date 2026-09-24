@@ -1,0 +1,137 @@
+\documentclass[11pt, oneside]{book}
+
+% --- Core Math & Symbols ---
+\usepackage{amsmath}       % For 'align' and 'subequations' [cite: 1, 7, 30, 34, 42, 45, 47, 49, 50, 54, 75, 77, 87]
+\usepackage{amssymb}       % For math symbols
+\usepackage{amsfonts}      % For math fonts
+\usepackage{amsthm}        % For 'proof' and custom theorem environments
+\usepackage{mathrsfs}      % For \mathscr{H} (Hilbert space) 
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{physics}
+\usepackage{tensor}
+\usepackage{upgreek}
+\usepackage{simplewick}
+\usepackage{simpler-wick}
+% --- Formatting & Layout ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage[colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage[breakable]{tcolorbox} % For the proof/remark boxes [cite: 5, 15, 19, 26, 29, 32, 37, 39, 43, 50, 57, 68, 80, 83]
+\usepackage{etoolbox}
+
+\newcounter{tcbctr}
+\newcounter{saveequation}
+
+\makeatletter
+\newcommand{\savedtheequation}{}
+\newcommand{\savedtheHequation}{}
+
+\BeforeBeginEnvironment{tcolorbox}{%
+	\setcounter{saveequation}{\value{equation}}%
+	\let\savedtheequation\theequation
+	\let\savedtheHequation\theHequation
+}
+
+\AtBeginEnvironment{tcolorbox}{%
+	\refstepcounter{tcbctr}%
+	\setcounter{equation}{0}%
+	\renewcommand{\theequation}{\arabic{equation}}%
+	\renewcommand{\theHequation}{tcb.\thetcbctr.\arabic{equation}}%
+}
+
+\AfterEndEnvironment{tcolorbox}{%
+	\setcounter{equation}{\value{saveequation}}%
+	\let\theequation\savedtheequation
+	\let\theHequation\savedtheHequation
+}
+\makeatother
+
+% --- Custom Environment Definitions ---
+% Defines the 'remark' environment used in your source 
+\newtheorem*{remark}{Remark}
+
+% --- Polchinski Custom Macros ---
+\newcommand{\dif}{\mathrm{d}} % For \dif\tau, \dif\sigma [cite: 2, 3, 5, 7, 10, 11, 20, 24, 31, 35, 39, 45, 46, 51, 57, 58, 63, 68, 77]
+\newcommand{\mi}{i}  % For \mi as imaginary unit [cite: 33, 47, 48, 50, 51, 52, 58, 67, 68, 69, 71, 74, 80]
+\newcommand{\me}{\mathrm{e}}  % For \me as exponential [cite: 26, 51, 62]
+\newcommand{\del}{\partial}
+\newcommand{\delbar}{\bar{\partial}}
+\newcommand{\zbar}{\bar{z}}
+\newcommand{\bno}{\circ\mkern-1mu}
+% Delimiters for the Zamolodchikov/State-Operator inner product
+\newcommand{\lAngle}{\langle\!\langle}
+\newcommand{\rAngle}{\rangle\!\rangle}
+\newcommand{\questeq}{\stackrel{?}{=}}
+\newcommand{\eqs}[1]{\overset{(#1)}{=}}
+\newcommand{\normal}[1]{\text{:} #1 \text{:}}
+% OR a version that matches the "very small white circle" name more closely
+\usepackage{wasysym}
+\newcommand{\vysmwhtcircle}{\circ} % or \vcircle from other packages
+% Custom normal ordering colons used in the operator method section
+\newcommand{\typecolon}{\mathrel{:}}
+% --- Counter & Numbering Setup ---
+\numberwithin{equation}{section} % Matches your \numberwithin command 
+
+% --- Title & Contact Information ---
+\title{String Theory based on Polchinski}
+\author{Personal Study Notes \\ \small \href{mailto:chandra.pp@alumni.iitg.ac.in}{chandra.pp@alumni.iitg.ac.in}}
+\date{\today}
+\allowdisplaybreaks
+% Let text share pages with large figures instead of leaving blank space
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.9}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\begin{document}
+	
+	% --- Front Matter ---
+	\frontmatter
+	
+	\maketitle
+	
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	These notes are personal study materials based primarily on Joseph Polchinski’s \textit{String Theory}. While they derive insights from multiple sources, Polchinski’s text served as the primary roadmap and foundational framework for this project.
+	
+	The central goal of these notes is to make the subject of string theory more accessible, both for my own mastery and for any other students navigating this demanding field. To achieve this, I have made every effort to \textbf{derive all calculations explicitly}. By filling in the "missing steps" and technical nuances often omitted in standard texts, I hope to ensure the material is easily parsable and the underlying mathematical narrative is transparent.
+	
+	I welcome feedback, corrections, or discussions regarding the content of these notes. Please feel free to reach out to me via email.
+	
+	\vfill
+	\begin{flushleft}
+		\textbf{Contact:} \\
+		\href{mailto:chandra.pp@alumni.iitg.ac.in}{chandra.pp@alumni.iitg.ac.in}
+	\end{flushleft}
+	
+	\vspace{1cm}
+	\noindent \textit{Disclaimer: These are pedagogical study notes. While I have strived for accuracy, any errors in the calculations, typos, or physical interpretations remain entirely my own. I am actively revising and correcting the notes; the latest version can always be found on the project page at \href{https://lunar-photon.github.io}{lunar-photon.github.io}.}
+	
+	\tableofcontents
+	
+	% --- Main Content ---
+	\mainmatter
+	
+	\include{chapters/chapter1}
+	\include{chapters/chapter2}
+	\include{chapters/chapter3}
+	\include{chapters/chapter4}
+	\include{chapters/chapter5}
+	\include{chapters/chapter6}
+	\include{chapters/chapter7}
+	\include{chapters/chapter8}
+	\include{chapters/chapter9}
+	\include{chapters/chapter10}
+	\include{chapters/chapter11}
+	\include{chapters/chapter12}
+	\include{chapters/chapter13}
+\end{document}

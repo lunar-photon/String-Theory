@@ -1,0 +1,26 @@
+## Core LaTeX auxiliary files
+*.aux
+*.bcf
+*.fls
+*.fdb_latexmk
+*.fmt
+*.fot
+*.log
+*.out
+*.run.xml
+*.synctex
+*.synctex.gz
+*.toc
+*.xdv
+*.dvi
+
+## macOS / OS files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+## Archives & Backups
+*.zip
+*.tar.gz
+backup-original/
